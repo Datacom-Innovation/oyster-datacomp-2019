@@ -40,7 +40,7 @@ $(function() {
   const displayFinal = data => {
     hideAll()
     $bottomLabel.css("display", "block");
-    $bottomLabel.css("color", "#252741");
+    $bottomLabel.css("color", "#FFFFFF");
     $body.css("background-color", "#f15a5e")
   }
 
@@ -48,7 +48,6 @@ $(function() {
     $listing.css("display", "none");
     $googleMessageWrapper.css("display", "none");
     $body.css("background-color", "#000000");
-    $bottomLabel.css("background-color", "#000000");
     $bottomLabel.css("display", "none");
     $welcome.css("display", "none");
   }
