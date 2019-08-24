@@ -6,24 +6,25 @@
 
 html {
   font-weight: 300;
-  -webkit-font-smoothing: antialiased;
+  /* -webkit-font-smoothing: antialiased; */
 }
 
 html, input {
   font-family:
+    "ABeeZee",
     "HelveticaNeue-Light",
     "Helvetica Neue Light",
     "Helvetica Neue",
     Helvetica,
     Arial,
     "Lucida Grande",
-    sans-serif;
+    sans-serif !important;
 }
 
 html, body {
   height: 100%;
   margin: 0;
-  padding: 20px;
+  /* padding: 20px; */
   position: relative;
 }
 
@@ -39,6 +40,15 @@ ul {
   margin: 0;
   padding: 0;
   width: 100%;
+  font-family:
+  "ABeeZee",
+  "HelveticaNeue-Light",
+  "Helvetica Neue Light",
+  "Helvetica Neue",
+  Helvetica,
+  Arial,
+  "Lucida Grande",
+  sans-serif !important;
 }
 
 .body{
@@ -56,14 +66,14 @@ ul {
   font-size: 20px
 }
 
-.google-message-wrapper{
+/* .google-message-wrapper{
   margin-top: 100px;
 }
 
 .google-message{
   color: white;
   font-size: 30px;
-}
+} */
 
 /* Login Page */
 
@@ -167,196 +177,9 @@ ul {
   width: 100%;
 }
 
-@font-face{
+/* @font-face{
   font-family: 'digital-7';
-  src: url('../fonts/digital-7.ttf');
-}
-
-/* DAYS OF THE WEEK */
-div.days {
-  color: #3b3939;
-  margin-bottom: 0;
-}
-
-div.days .day {
-  display: inline-block;
-  margin-bottom: 0px;
-}
-
-div.days .day p {
-	font-size: 1.1vw;
-	font-weight: bold;
-	font-family: sans-serif;
-  text-transform: uppercase;
-  margin-bottom: 0px;
-}
-
-
-/* CLOCK */
-div.clock {
-  margin:0px;
-}
-
-div.clock div{
-  margin-top:0px;
-	display: inline-block;
-	position: relative;
-}
-
-
-div.clock div p{
-  margin-top:0px;
-	font-size: 4vw;
-	position: relative;
-	z-index: 100;
-}
-
-div.clock .placeholder {
-  margin-top:0px;
-	color: #000000;
-	position: absolute;
-	top: 0;
-	z-index: 50;
-}/*END CLOCK*/
-
-
-/* AM OR PM*/
-.am-pm {
-  margin-top:0px;
-	font-family: sans-serif;
-	text-transform: uppercase;
-	/* width: 100px; */
-}
-
-div.am-pm div p {
-	font-size: 4vw;
-  width: 100%;
-  margin-bottom: 0.35vw;
-}
-
-.am, .pm {
-  color: white;
-  display:none;
- 
-}
-
-.light-on { 
-  color: white;
-  display: block; 
-}
-
-
-/* Weather */
-.card{
-  float: left;
-  /*height: 110px;*/
-  /*margin-bottom: 80px;*/
-  margin-left: 0px;
-  margin-right:20px;
-  background-color: transparent;
-  border-radius: 20px;
-  background-size: cover;
-  background-repeat: no-repeat;
-  box-shadow: 0px 7px 30px 2px rgba(0,0,0,0.18);
-}
-/* img{
-  width: 30px;
-} */
-.list-inline{
-  float: left;
-  margin-bottom: 0 !important;
-  flex: 1;
-  font-size: 10px;
-}
-.celsius{
-  bottom: 0px;
-  color: white;
-  float: left;
-  font-size: 20px;
-  margin-left: 5px;
-}
-.contents{
-  margin-left: 0px;
-  float: left;
-}
-.weather{
-  font-size: 25px;
-  font-weight: bold;
-  color: white;
-}
-.userName{
-  font-size: 25px;
-  font-weight: bold;
-  color: white;
-}
-.currentDate{
-  font-size: 20px;
-  color: white;
-  margin-top:-10px;
-  opacity: 0.7;
-}
-.listimg {
-    object-fit: contain;
-    width: 100%;
-    display: none;
-    max-height: 480px;
-}
-
-.videoClass {
-  object-fit: contain;
-  width: 72%;
-  display: none;
-  float: right;
-}
-
-/* start welcome animation */
-.invisible {
-  visibility: hidden;
-}
-
-.visible {
-  visibility: visible;
-}
-
-.static-splash {
-  z-index: -1;
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  left: 0;
-  top: 0;
-  background: #fff;
-}
-
-.splash {
-  height: 0px;
-  padding: 0px;
-  border: 130em solid #ffffff;
-  position: fixed;
-  left: 50%;
-  top: 100%;
-  display: block;
-  box-sizing: initial;
-  overflow: hidden;
-
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  animation: puff 0.5s 1.8s cubic-bezier(0.55, 0.055, 0.675, 0.19) forwards, borderRadius 0.2s 2.3s linear forwards;
-}
-
-.ball {
-  background: #000000 ;
-  width: 56px;
-  height: 56px;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  overflow: hidden;
-  opacity: 0;
-  transform: translate(-50%, -50%);
-  border-radius: 50%;
-  animation: init 0.5s 0.2s cubic-bezier(0.55, 0.055, 0.675, 0.19) forwards, moveDown 1s 0.8s cubic-bezier(0.6, -0.28, 0.735, 0.045) forwards, moveUp 1s 1.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards, hide 2s 1.5s ease forwards;
-}
+  src: url('../fonts/digital-7.ttf'); */
 
 .elementToFadeInAndOut {
   opacity: 1;
@@ -464,4 +287,40 @@ div.am-pm div p {
 50% { opacity: 1 }
 }
 
+/* Views */
+h1 {
+  font-size: 6.5rem;
+}
+p {
+  font-size: 3.5rem
+}
+.welcome {
+  background-color: #C4D3E4;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  position: absolute;
+  color: #252741;
+}
+.welcome div {
+  bottom: 10em;
+  position: absolute;
+}
 
+.google-message-wrapper {
+  background-color: #252741;
+  color: #FFF;
+}
+.google-message-wrapper div {
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  height:100%;
+  width: 60%;
+  margin: 0 auto;
+}
+
+.google-message-wrapper p {
+  font-size: 4rem;
+}
