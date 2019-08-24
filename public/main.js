@@ -74,6 +74,8 @@ $(function() {
     displayImage(data);
     disableAllStates();
     poseDetectionState.detectSideStretch = false;
+    // TODO: Nathan please fix ;)
+    poseDetectionState.detectLeftArmRaised = true
   });
 
   socket.on("show_dab_done", data => {
