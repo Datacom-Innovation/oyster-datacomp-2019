@@ -45,7 +45,7 @@ var noIntentFound = {
 
 function FindIntent(IntentId) {
   for (var i = 0; i < intentMapper.intents.length; i++) {
-    if (intentMapper.intents[i].intentName === IntentId) {
+    if (intentMapper.intents[i].IntentID === IntentId) {
       return intentMapper.intents[i];
     }
   }
