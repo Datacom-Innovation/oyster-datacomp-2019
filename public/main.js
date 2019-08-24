@@ -17,6 +17,8 @@ $(function() {
     $googleMessageText.text(data.message);
   };
 
+  successPose();
+
   const displayImage = data => {
     hideAll()
     $listing.css("display", "block");
@@ -371,9 +373,13 @@ function detectPoseInRealTime(video, net) {
 }
 
 const successPose = () => {
-  $body.css("background-color", "#B7B93E")
+  $("body").css("background-color", "#D2E4B2")
   var audio = new Audio('Tada.wav');
-  audio.play();
+
+  const playPromise = audio.play();
+  if (playPromise !== null){
+      playPromise.catch(() => { audio.play(); })
+  }
 }
 
 //invokes functions as soon as window loads
