@@ -334,9 +334,11 @@ function detectPoseInRealTime(video, net) {
     async function poseDetectionFrame() {
         // skip frame if we are not specifically looking for any poses
         if (allFalse(poseDetectionState)) {
+            console.debug('skip frame');
             requestAnimationFrame(poseDetectionFrame);
             return;
         }
+        console.debug('process frame');
 
         let poses = [];
         const pose = await net.estimatePoses(video, {
