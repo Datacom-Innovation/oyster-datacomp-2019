@@ -9,31 +9,6 @@ $(function() {
   var $userName = $('.userName'); //User's name
   var $listing = $('.listimg'); //Listing 
   var $videoClass = $('.videoClass'); //Listing 
-	
-	var $intro = $('.elementToFadeInAndOut');
-  var $intro2 = $('.WeeklyWeatherWidget');
-  
-  $screenStatus.hide()
-
-	function startAnimation() {
-		document.getElementById('ball').className ='visible';
-		document.getElementById('ball').className ='ball';
-		document.getElementById('splash').className ='splash';
-		document.getElementById('startscreen').className ='invisible';
-    document.getElementById('hisally').className ='invisible';
-    setTimeout(function() {document.getElementById("weeklyWeatherWidget").setAttribute("style","display:true;"); },2500)
-		
-	}
-
-
-	$intro.hide()
-	$intro.fadeIn(1000)
-	$intro.delay(1000)
-	$intro.fadeOut(1000, function() {
-		startAnimation()
-	});
-
-
 
   const displayHomeStatus = (data) => {
     console.log(data)
@@ -157,59 +132,6 @@ const poseDetectionState = {
     detectSideStretch: false,
     detectDab: false,
 };
-
-//gets current time and changes html to reflect it
-function time(){
-	var date = new Date(),
-		hours = date.getHours(),
-		minutes = date.getMinutes(),
-		seconds = date.getSeconds();
-
-	//make clock a 12 hour clock instead of 24 hour clock
-	hours = (hours > 12) ? (hours - 12) : hours;
-	hours = (hours === 0) ? 12 : hours;
-
-	//invokes function to make sure number has at least two digits
-	hours = addZero(hours);
-	minutes = addZero(minutes);
-	seconds = addZero(seconds);
-
-	//changes the html to match results
-	document.getElementsByClassName('hours')[0].innerHTML = hours;
-	document.getElementsByClassName('minutes')[0].innerHTML = minutes;
-}
-
-//turns single digit numbers to two digit numbers by placing a zero in front
-function addZero (val){
-	return (val <= 9) ? ("0" + val) : val;
-}
-
-//lights up either am or pm on clock
-function ampm(){
-	var date = new Date(),
-		hours = date.getHours(),
-		am = document.getElementsByClassName("am")[0].classList,
-		pm = document.getElementsByClassName("pm")[0].classList;
-	
-		
-	(hours >= 12) ? pm.add("light-on") : am.add("light-on");
-	(hours >= 12) ? am.remove("light-on") : pm.remove("light-on");
-}
-
-//lights up what day of the week it is
-function whatDay(){
-	var date = new Date(),
-		currentDay = date.getDay(),
-		days = document.getElementsByClassName("day");
-
-	//iterates through all divs with a class of "day"
-	for (x in days){
-		//list of classes in current div
-		var classArr = days[x].classList;
-
-		(classArr !== undefined) && ((x == currentDay) ? classArr.add("light-on") : classArr.remove("light-on"));
-	}
-}
 
 async function setupPosenet() {
     return await posenet.load({
@@ -377,14 +299,6 @@ function detectPoseInRealTime(video, net) {
 
 //invokes functions as soon as window loads
 window.onload = async function(){
-    time();
-    ampm();
-    whatDay();
-    setInterval(function(){
-        time();
-        ampm();
-        whatDay();
-    }, 1000);
     const net = await setupPosenet();
     const video = await loadVideo();
     detectPoseInRealTime(video, net);
