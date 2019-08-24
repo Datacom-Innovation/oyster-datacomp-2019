@@ -47,6 +47,7 @@ $(function() {
     $welcomeHeading.css("display", "block");
     $welcomeContent.text("Have a pearl day!");
     $welcomeContent.css("display", "block");
+    $welcome.css("display", "block");
 
   }
 
