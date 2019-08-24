@@ -8,12 +8,13 @@ $(function() {
   var $bottomLabel = $(".bottom-label");
   var $welcome = $(".welcome");
   var $googleMessageWrapper = $(".google-message-wrapper");
+  var $googleMessageText = $(".google-message-text");
 
   const displayHomeStatus = data => {
     hideAll()
     $body.css("background-color", "#c4d3e4")
     $googleMessageWrapper.css("display", "block")
-    $googleMessage.text(data.message);
+    $googleMessageText.text(data.message);
   };
 
   const displayImage = data => {
@@ -57,7 +58,7 @@ $(function() {
     // Display home status
     displayImage(data);
     disableAllStates();
-    poseDetectionState.detectSideStretch = true;
+    poseDetectionState.detectSideStretch = false;
   });
 
   socket.on("show_dab_done", data => {
@@ -336,31 +337,43 @@ function detectPoseInRealTime(video, net) {
 
     if (poseDetectionState.detectRightArmRaised && raiseRightHand(pose)) {
       console.log('raised right arm detected');
+      successPose()
     }
 
     if (poseDetectionState.detectLeftArmRaised && raiseLeftHand(pose)) {
       console.log('raised left arm detected');
+      successPose()
     }
 
     if (poseDetectionState.detectBothArmsRaised && raiseHands(pose)) {
       console.log('raised arms detected');
+      successPose()
     }
 
     if (poseDetectionState.detectToeTouch && touchToes(pose)) {
       console.log('toe touch detected');
+      successPose()
     }
 
     if (poseDetectionState.detectSideStretch && sideStretch(pose)) {
       console.log('side stretch detected');
+      successPose()
     }
 
     if (poseDetectionState.detectDab && checkDab(pose)) {
       console.log('dab detected');
+      successPose()
     }
 
     requestAnimationFrame(poseDetectionFrame);
   }
   poseDetectionFrame();
+}
+
+const successPose = () => {
+  $body.css("background-color", "#B7B93E")
+  var audio = new Audio('Tada.wav');
+  audio.play();
 }
 
 //invokes functions as soon as window loads
