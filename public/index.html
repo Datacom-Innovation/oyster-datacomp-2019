@@ -2,105 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Mirror</title>
+  <title>Oyster</title>
   <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
   <link rel="stylesheet" href="style.css">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-<div id="startscreen" class="static-splash" style="z-index:500"></div>
 
-<div>
-    <span id="splash"></span>
-    <img src="img/poop.png" id="ball" class="invisible"></img>
-</div>
-
-<span id="hisally" style="position: absolute; left: 50%; top: 50%; margin-left: -70px; display: none; z-index:500" class="elementToFadeInAndOut">
-    <h1>Hi Scott!</h1>
-</span>
-
-
-<div class="container-fluid">
-  <div class="row" style = "opacity: 0.9;">
-     <div class="col-sm-4">
-     <!-- DAY OF THE WEEK -->
-      <div>
-        <!-- CLOCK -->
-        <div class="clock">
-          <!-- HOUR -->
-          <div class="numbers">
-            <p class="hours light-on"></p>
-          </div>
-          <div class="colon light-on">
-            <p>:</p>
-          </div>
-          <!-- MINUTE -->
-          <div class="numbers">
-            <p class="minutes light-on"></p>
-          </div>
-          <!-- AM / PM -->
-          <div class="am-pm">
-            <!-- AM -->
-            <div>
-              <p class="am">am</p>
-            </div>
-            <!-- PM -->
-            <div>
-              <p class="pm">pm</p>
-            </div>
-          </div>
-        </div>
-        <div class="currentDate">
-            <script>
-              var currentdate = new Date().toDateString();
-              document.write(currentdate);
-            </script>
-        </div>
-
-        <!--END CLOCK-->
-        <!--Start of weather cardView-->
-
-        <div class="row" style= "float: left; position: relative; left: -160px; opacity: 0.7; margin-top: -40px" >
-
-        <div id="weeklyWeatherWidget" style= "display: none">
-            <script type='text/javascript' src='https://darksky.net/widget/default/-41.2865,174.7762/uk12/en.js?width=280%&height=350&title=Wellington&textColor=ffffff&bgColor=transparent&transparency=true&skyColor=ffffff&fontFamily=Default&customFont=&units=uk&htColor=ffffff&ltColor=ffffff&displaySum=yes&displayHeader=yes'>
-            </script>
-        </div>
-            <!-- <script type='text/javascript' src='https://darksky.net/widget/small/-36.8535,174.7656/ca12/en.js?width=100%&height=50&title=Auckland&textColor=ffffff&bgColor=ffffff&transparency=true&skyColor=ffffff&fontFamily=Default&customFont=&units=ca'>
-            </script> -->
-        </div>
-      </div>
-
-    </div>
-      <div class="col-sm" style="text-align: right; ">
-      <!-- <div >
-          <p class="userName">
-          </p>
-          <img src="img/icons8-standing-man-filled-100.png" class="screenStatus" width="80px" />
-      </div> -->
-      <img class="listimg" src="">
-      <video class="videoClass" autoplay muted controls>
-        Your browser does not support the video tag.
-      </video>
-    </div>
-  </div>
-</div>
-
-<div class="container google-message-wrapper">
-  <div class="row">
-    <div class="col align-self-center text-center google-message">
-      
-    </div>
-  </div>
-</div>
-<footer class="fixed-bottom">
-  <div class="text-center" style="font-size: 30px; font-weight: bold; color: white; padding-bottom: 30px">Datacom Prototype Wellness Coach</div>
-  
-</footer>
-<div style="position: absolute; bottom: 10px; left: 10px"><img src="https://magicmirror.blob.core.windows.net/miraimages/logo.png" height="60px"/></div>
   <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-  <script src="/socket.io/socket.io.js"></script>
-  <script src="/main.js"></script>	
+  <script src="./socket.io/socket.io.js"></script>
+  <script src="./main.js"></script>	
   <!-- Latest compiled and minified JavaScript -->
   <script src="js/bootstrap.js"></script>
 </body>
