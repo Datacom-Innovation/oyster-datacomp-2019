@@ -8,41 +8,31 @@ exports.SetIO = function(IO) {
 var intentMapper = {
   intents: [
     {
-      IntentID: "WhoAreYou",
+      IntentID: "BothArmsRaised",
+      AudioResponse: "Great stuff, let’s keep going",
+      VisualResponse: "Great stuff, let’s keep going"
+    },
+    {
+      IntentID: "NotGreat",
       AudioResponse:
-        "I'm Pearl, your assistant! I can help you be a better you. What would you like to do?",
+        "Okay, why don’t we do some simple stretches? Let’s start with the first one",
       VisualResponse:
-        "I'm Pearl, your assistant! I can help you be a better you. What would you like to do?"
+        "Okay, why don’t we do some simple stretches? Let’s start with the first one"
     },
     {
-      IntentID: "BackPain",
-      AudioResponse: "Here are some exercises you can do right now",
-      VisualResponse: "Here are some exercises you can do right now"
+      IntentID: "SideStretch",
+      AudioResponse: "Nice work! How about one last stretch? Let’s do it",
+      VisualResponse: "Nice work! How about one last stretch? Let’s do it"
     },
     {
-      IntentID: "CoffeeBreak",
-      AudioResponse: "Take a quick walk and do some of these stretches",
-      VisualResponse: "Take a quick walk and do some of these stretches"
+      IntentID: "DabDone",
+      AudioResponse: "Awesome! How did that feel?",
+      VisualResponse: "Awesome! How did that feel?"
     },
     {
-      IntentID: "Stretches",
-      AudioResponse: "Get up from your desk regularly, and take active breaks",
-      VisualResponse: "Get up from your desk regularly, and take active breaks"
-    },
-    {
-      IntentID: "MoreAwake",
-      AudioResponse: "Some short bursts of physical activity will help",
-      VisualResponse: "Some short bursts of physical activity will help"
-    }, 
-    {
-      IntentID: "NotGreat",
-      AudioResponse: "Okay, why don’t we do some simple stretches? Let’s start with the first one",
-      VisualResponse: "Okay, why don’t we do some simple stretches? Let’s start with the first one"
-    }, 
-    {
-      IntentID: "NotGreat",
-      AudioResponse: "Okay, why don’t we do some simple stretches? Let’s start with the first one",
-      VisualResponse: "Okay, why don’t we do some simple stretches? Let’s start with the first one"
+      IntentID: "Thanks",
+      AudioResponse: "Awesome, see you later for more stretches.",
+      VisualResponse: "Awesome, see you later for more stretches."
     }
   ]
 };
@@ -67,59 +57,34 @@ exports.processRequest = function(req, res) {
   var picked = FindIntent(req.body.queryResult.intent.displayName);
   console.log(picked);
   if (picked != null) {
-    // if (picked.IntentID === "ShowPhotoshopMagazingCover") {
-    //     io.emit('show_health_info', {
-    //         status: true,
-    //         url: "https://magicmirror.blob.core.windows.net/miraimages/ConferenceDay2.png"
-    //     });
-    // }
+    if (picked.IntentID === "NotGreat") {
+      io.emit("show_both_arms", {
+        status: true,
+        url:
+          "https://magicmirror.blob.core.windows.net/miraimages/ConferenceDay2.png"
+      });
+    }
 
-    // if (picked.IntentID === "HotelBed") {
-    //   io.emit("show_sleep_pattern", {
-    //     status: true,
-    //     url: "https://magicmirror.blob.core.windows.net/miraimages/Sleep2.png"
-    //   });
-    // }
+    if (picked.IntentID === "BothArmsRaised") {
+      io.emit("show_side_stretch", {
+        status: true,
+        url: "https://magicmirror.blob.core.windows.net/miraimages/Sleep2.png"
+      });
+    }
 
-    // if (picked.IntentID === "AverageFood") {
-    //   io.emit("show_nutritional_pattern", {
-    //     status: true,
-    //     url:
-    //       "https://magicmirror.blob.core.windows.net/miraimages/Nutrition2.png"
-    //   });
-    // }
+    if (picked.IntentID === "SideStretch") {
+      io.emit("show_dab_done", {
+        status: true,
+        url:
+          "https://magicmirror.blob.core.windows.net/miraimages/Nutrition2.png"
+      });
+    }
 
-    // if (picked.IntentID === "FacebookAbs") {
-    //   io.emit("show_fitness_details", {
-    //     status: true,
-    //     url:
-    //       "https://magicmirror.blob.core.windows.net/miraimages/Calories2.png"
-    //   });
-    // }
-
-    // if (picked.IntentID === "BusyDayHINZ") {
-    //   io.emit("show_hinz_schedule", {
-    //     status: true,
-    //     url:
-    //       "https://magicmirror.blob.core.windows.net/miraimages/Schedule2.png"
-    //   });
-    // }
-
-    // if (picked.IntentID === "RogerThat") {
-    //   io.emit("show_gout_video", {
-    //     status: true,
-    //     url:
-    //       "https://magicmirror.blob.core.windows.net/miravideos/963482464001_5847256729001_5847249356001.mp4"
-    //   });
-    // }
-
-    // if (picked.IntentID === "ShowHealthInfo") {
-    //   // Show health information on display
-    //   io.emit("show_health_info", {
-    //     status: true,
-    //     url: ""
-    //   });
-    // }
+    if (picked.IntentID === "Thanks") {
+      io.emit("thanks_final", {
+        status: true
+      });
+    }
 
     io.emit("voice_text", {
       username: "test",
