@@ -80,10 +80,12 @@ $(function() {
   socket.on("greeting_start", data => {
     // Display home status
     displayHomeStatus(data);
+    disableAllStates();
   });
 
   socket.on("thanks_final", data => {
     displayFinal(data);
+    disableAllStates();
   });
 
   const disableAllStates = () => {
