@@ -12,7 +12,7 @@ $(function() {
 
   const displayHomeStatus = data => {
     hideAll()
-    $body.css("background-color", "#c4d3e4")
+    $body.css("background-color", "#252741")
     $googleMessageWrapper.css("display", "block")
     $googleMessageText.text(data.message);
   };
@@ -37,12 +37,20 @@ $(function() {
     console.log(data);
   };
 
+  const displayFinal = data => {
+    hideAll()
+    $bottomLabel.css("display", "block");
+    $bottomLabel.css("color", "#252741");
+    $body.css("background-color", "#f15a5e")
+  }
+
   const hideAll = () => {
     $listing.css("display", "none");
     $googleMessageWrapper.css("display", "none");
-    $body.css("background-color", "#000000")
-    $bottomLabel.css("background-color", "#000000")
-    $welcome.css("display", "none")
+    $body.css("background-color", "#000000");
+    $bottomLabel.css("background-color", "#000000");
+    $bottomLabel.css("display", "none");
+    $welcome.css("display", "none");
   }
 
   // **** Socket Events ****
@@ -75,7 +83,9 @@ $(function() {
     displayHomeStatus(data);
   });
 
-  socket.on("thanks_final", data => {});
+  socket.on("thanks_final", data => {
+    displayFinal(data);
+  });
 
   const disableAllStates = () => {
     poseDetectionState.detectBothArmsRaised = false;
