@@ -33,14 +33,24 @@ var intentMapper = {
       IntentID: "MoreAwake",
       AudioResponse: "Some short bursts of physical activity will help",
       VisualResponse: "Some short bursts of physical activity will help"
+    }, 
+    {
+      IntentID: "NotGreat",
+      AudioResponse: "Okay, why don’t we do some simple stretches? Let’s start with the first one",
+      VisualResponse: "Okay, why don’t we do some simple stretches? Let’s start with the first one"
+    }, 
+    {
+      IntentID: "NotGreat",
+      AudioResponse: "Okay, why don’t we do some simple stretches? Let’s start with the first one",
+      VisualResponse: "Okay, why don’t we do some simple stretches? Let’s start with the first one"
     }
   ]
 };
 
 var noIntentFound = {
   IntentID: "None",
-  AudioResponse: "Sorry, can you try that again?",
-  VisualResponse: "Sorry, can you try that again?"
+  AudioResponse: "",
+  VisualResponse: ""
 };
 
 function FindIntent(IntentId) {
@@ -123,11 +133,11 @@ exports.processRequest = function(req, res) {
   } else {
     io.emit("home_status", {
       username: "test",
-      message: "sorry, can you try that again?"
+      message: ""
     });
     return res.json({
-      speech: "sorry, can you try that again?",
-      displayText: "sorry, can you try that again?",
+      speech: "",
+      displayText: "",
       source: "fullfilmentAPI"
     });
   }
