@@ -93,7 +93,9 @@ const poseDetectionState = {
   detectBothArmsRaised: false,
   detectTouchToes: false,
   detectSideStretch: false,
-  detectDab: false
+  detectDab: false,
+  minPoseConfidence: 0.1,
+  minPartConfidence: 0.5,
 };
 
 async function setupPosenet() {
@@ -119,14 +121,14 @@ async function setupCamera() {
     navigator.webkitGetUserMedia ||
     navigator.mozGetUserMedia;
   const video = document.getElementById("posenet-video");
-  video.width = 1280;
-  video.height = 720;
+  video.width = 480;
+  video.height = 270;
   const stream = await navigator.mediaDevices.getUserMedia({
     audio: false,
     video: {
       facingMode: "user",
-      width: 1280,
-      height: 720
+      width: 480,
+      height: 270
     }
   });
   video.srcObject = stream;
@@ -146,17 +148,63 @@ function allFalse(object) {
 }
 
 function detectPoseInRealTime(video, net) {
-    const videoWidth = 480;
-    const videoHeight = 270;
-    const canvas = document.getElementById('posenet-output');
-    const ctx = canvas.getContext('2d');
+  const videoWidth = 480;
+  const videoHeight = 270;
+  const canvas = document.getElementById('posenet-output');
+  const ctx = canvas.getContext('2d');
+  const color = 'aqua'; // skeleton and point color
+  const lineWidth = 2; // skeleton line width
 
-    canvas.width = videoWidth;
-    canvas.height = videoHeight;
+  canvas.width = videoWidth;
+  canvas.height = videoHeight;
 
-    function dotProduct(v1, v2) {
-        return v1.x * v2.x + v1.y * v2.y
+  function toTuple({ y, x }) {
+    return [y, x];
+  }
+
+  function drawPoint(ctx, y, x, r, color) {
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, 2 * Math.PI);
+    ctx.fillStyle = color;
+    ctx.fill();
+  }
+
+  function drawSegment([ay, ax], [by, bx], color, scale, ctx) {
+    ctx.beginPath();
+    ctx.moveTo(ax * scale, ay * scale);
+    ctx.lineTo(bx * scale, by * scale);
+    ctx.lineWidth = lineWidth;
+    ctx.strokeStyle = color;
+    ctx.stroke();
+  }
+
+  function drawKeypoints(keypoints, minConfidence, ctx, scale = 1) {
+    for (let i = 0; i < keypoints.length; i++) {
+      const keypoint = keypoints[i];
+
+      if (keypoint.score < minConfidence) {
+        continue;
+      }
+
+      const { x, y } = keypoint.position;
+      drawPoint(ctx, y * scale, x * scale, 3, color);
     }
+  }
+
+  function drawSkeleton(keypoints, minConfidence, ctx, scale = 1) {
+    const adjacentKeyPoints =
+      posenet.getAdjacentKeyPoints(keypoints, minConfidence);
+
+    adjacentKeyPoints.forEach((keypoints) => {
+      drawSegment(
+        toTuple(keypoints[0].position), toTuple(keypoints[1].position), color,
+        scale, ctx);
+    });
+  }
+
+  function dotProduct(v1, v2) {
+    return v1.x * v2.x + v1.y * v2.y
+  }
 
   function magnitude(vector) {
     return Math.sqrt(Math.pow(vector.x, 2) + Math.pow(vector.y, 2));
@@ -254,92 +302,66 @@ function detectPoseInRealTime(video, net) {
   }
 
   async function poseDetectionFrame() {
-    // skip frame if we are not specifically looking for any poses
+    ctx.clearRect(0, 0, videoWidth, videoHeight);
+
+    ctx.save();
+    ctx.scale(-1, 1);
+    ctx.translate(-videoWidth, 0);
+    ctx.drawImage(video, 0, 0, videoWidth, videoHeight);
+    ctx.restore();
+
+    // skip pose detection for frame if we are not specifically looking for any poses
     if (allFalse(poseDetectionState)) {
-      console.debug("skip frame");
+      //console.debug('skip frame');
       requestAnimationFrame(poseDetectionFrame);
       return;
     }
-    console.debug("process frame");
+    //console.debug('process frame');
 
     let poses = [];
+    let minPoseConfidence;
+    let minPartConfidence;
     const pose = await net.estimatePoses(video, {
       flipHorizontal: true,
-      decodingMethod: "single-person"
+      decodingMethod: 'single-person',
     });
     poses = poses.concat(pose);
 
-    // insert pose detection code here
+    minPoseConfidence = +poseDetectionState.minPoseConfidence;
+    minPartConfidence = +poseDetectionState.minPartConfidence;
+
+    poses.forEach(({ score, keypoints }) => {
+      if (score >= minPoseConfidence) {
+        //drawKeypoints(keypoints, minPartConfidence, ctx);
+        //drawSkeleton(keypoints, minPartConfidence, ctx);
+      }
+    });
+
     if (poseDetectionState.detectRightArmRaised && raiseRightHand(pose)) {
-      console.log("raised right arm detected");
+      console.log('raised right arm detected');
     }
 
     if (poseDetectionState.detectLeftArmRaised && raiseLeftHand(pose)) {
-      console.log("raised left arm detected");
+      console.log('raised left arm detected');
     }
 
     if (poseDetectionState.detectBothArmsRaised && raiseHands(pose)) {
-      console.log("raised arms detected");
+      console.log('raised arms detected');
     }
 
     if (poseDetectionState.detectToeTouch && touchToes(pose)) {
-      console.log("toe touch detected");
+      console.log('toe touch detected');
     }
 
     if (poseDetectionState.detectSideStretch && sideStretch(pose)) {
-      console.log("side stretch detected");
+      console.log('side stretch detected');
     }
 
-    async function poseDetectionFrame() {
-        ctx.clearRect(0, 0, videoWidth, videoHeight);
+    if (poseDetectionState.detectDab && checkDab(pose)) {
+      console.log('dab detected');
+    }
 
-        ctx.save();
-        ctx.scale(-1, 1);
-        ctx.translate(-videoWidth, 0);
-        ctx.drawImage(video, 0, 0, videoWidth, videoHeight);
-        ctx.restore();
-
-        // skip pose detection for frame if we are not specifically looking for any poses
-        if (allFalse(poseDetectionState)) {
-            console.debug('skip frame');
-            requestAnimationFrame(poseDetectionFrame);
-            return;
-        }
-        console.debug('process frame');
-
-        let poses = [];
-        const pose = await net.estimatePoses(video, {
-            flipHorizontal: true,
-            decodingMethod: 'single-person',
-        });
-        poses = poses.concat(pose);
-
-        // insert pose detection code here
-        if (poseDetectionState.detectRightArmRaised && raiseRightHand(pose)) {
-            console.log('raised right arm detected');
-        }
-
-        if (poseDetectionState.detectLeftArmRaised && raiseLeftHand(pose)) {
-            console.log('raised left arm detected');
-        }
-
-        if (poseDetectionState.detectBothArmsRaised && raiseHands(pose)) {
-            console.log('raised arms detected');
-        }
-
-        if (poseDetectionState.detectToeTouch && touchToes(pose)) {
-            console.log('toe touch detected');
-        }
-
-        if (poseDetectionState.detectSideStretch && sideStretch(pose)) {
-            console.log('side stretch detected');
-        }
-
-        if (poseDetectionState.detectDab && checkDab(pose)) {
-            console.log('dab detected');
-        }
-
-        requestAnimationFrame(poseDetectionFrame);
+    requestAnimationFrame(poseDetectionFrame);
 
     if (poseDetectionState.detectDab && checkDab(pose)) {
       console.log("dab detected");
