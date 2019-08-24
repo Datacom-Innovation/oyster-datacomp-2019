@@ -180,6 +180,14 @@ function allFalse(object) {
 }
 
 function detectPoseInRealTime(video, net) {
+    const videoWidth = 480;
+    const videoHeight = 270;
+    const canvas = document.getElementById('posenet-output');
+    const ctx = canvas.getContext('2d');
+
+    canvas.width = videoWidth;
+    canvas.height = videoHeight;
+
     function dotProduct(v1, v2) {
         return v1.x * v2.x + v1.y * v2.y
     }
@@ -268,7 +276,15 @@ function detectPoseInRealTime(video, net) {
     }
 
     async function poseDetectionFrame() {
-        // skip frame if we are not specifically looking for any poses
+        ctx.clearRect(0, 0, videoWidth, videoHeight);
+
+        ctx.save();
+        ctx.scale(-1, 1);
+        ctx.translate(-videoWidth, 0);
+        ctx.drawImage(video, 0, 0, videoWidth, videoHeight);
+        ctx.restore();
+
+        // skip pose detection for frame if we are not specifically looking for any poses
         if (allFalse(poseDetectionState)) {
             console.debug('skip frame');
             requestAnimationFrame(poseDetectionFrame);
