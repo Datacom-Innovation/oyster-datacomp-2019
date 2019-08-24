@@ -8,7 +8,7 @@ exports.SetIO = function (IO) {
 
 var intentMapper = {
     intents: [
-        { IntentID: "WhoAreYou", AudioResponse: "I'm sally, your assistant! I can help you be a better you. What would you like to do?", VisualResponse: "I'm sally, your assistant! I can help you be a better you. What would you like to do?" },
+        { IntentID: "WhoAreYou", AudioResponse: "I'm Pearl, your assistant! I can help you be a better you. What would you like to do?", VisualResponse: "I'm Pearl, your assistant! I can help you be a better you. What would you like to do?" },
         { IntentID: "DisplayNumber", AudioResponse: "Roger that!", VisualResponse: "I can see that you have asked me to display a number on the display" },
         { IntentID: "ShowHealthInfo", AudioResponse: "That’s not nice. You know, you’re tracking really well. Take a look at your stats! You are doing so much better than you think.", VisualResponse: "That’s not nice. You know, you’re tracking really well. Take a look at your stats! You are doing so much better than you think." },
         { IntentID: "ShowPhotoshopMagazingCover", AudioResponse: "Sally, you know the term “fake news”? well, social media is often like fake news. People only show the highlights of their lives but would never show their low points.", VisualResponse: "Sally, you know the term “fake news”? well, social media is often like fake news. People only show the highlights of their lives but would never show their low points." },
@@ -25,7 +25,7 @@ var intentMapper = {
         { IntentID: "RogerThat", AudioResponse: "And This item on causes for Gout was on the News last night that you should check out. I will send it to your phone.", VisualResponse: "And This item on causes for Gout was on the News last night that you should check out. I will send it to your phone." },
         { IntentID: "WishLuck", AudioResponse: "Good luck", VisualResponse: "Good luck" },
 
-        { IntentID: "Stretches", AudioResponse: "Audio response stretch", VisualResponse: "Visual responseStretch" },
+        { IntentID: "Stretches", AudioResponse: "Audio response stretch", VisualResponse: "Visual response Stretch" },
 
         //{ IntentID:"ThanksMira", AudioResponse:"Great. By the way, don’t forget to wear a jacket – it’s predicted to be cold today.", VisualResponse:"15 °C"},
 
@@ -45,7 +45,7 @@ function FindIntent(IntentId) {
             return intentMapper.intents[i];
         }
     }
-    return noIntentFound;
+    return intentMapper.intents[0];
 }
 
 exports.processRequest = function (req, res) {
