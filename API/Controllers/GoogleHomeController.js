@@ -15,99 +15,25 @@ var intentMapper = {
         "I'm Pearl, your assistant! I can help you be a better you. What would you like to do?"
     },
     {
-      IntentID: "DisplayNumber",
-      AudioResponse: "Roger that!",
-      VisualResponse:
-        "I can see that you have asked me to display a number on the display"
+      IntentID: "BackPain",
+      AudioResponse: "Here are some exercises you can do right now",
+      VisualResponse: "Here are some exercises you can do right now"
     },
     {
-      IntentID: "ShowHealthInfo",
-      AudioResponse:
-        "That’s not nice. You know, you’re tracking really well. Take a look at your stats! You are doing so much better than you think.",
-      VisualResponse:
-        "That’s not nice. You know, you’re tracking really well. Take a look at your stats! You are doing so much better than you think."
-    },
-    {
-      IntentID: "ShowPhotoshopMagazingCover",
-      AudioResponse:
-        "Sally, you know the term “fake news”? well, social media is often like fake news. People only show the highlights of their lives but would never show their low points.",
-      VisualResponse:
-        "Sally, you know the term “fake news”? well, social media is often like fake news. People only show the highlights of their lives but would never show their low points."
-    },
-    {
-      IntentID: "Default Welcome Intent",
-      AudioResponse: "Hi Scott, how are you today?",
-      VisualResponse: "Hi Scott, how are you today?"
-    },
-    {
-      IntentID: "MorningMira",
-      AudioResponse: "Good Morning Scott, nice day in Wellington",
-      VisualResponse: "Good Morning Scott, nice day in Wellington"
-    },
-    {
-      IntentID: "BusyDayHINZ",
-      AudioResponse: "Yes, here is the schedule",
-      VisualResponse: "Yes, here is the schedule"
-    },
-    {
-      IntentID: "YesIndeed",
-      AudioResponse: "You sound tired, how did you sleep?",
-      VisualResponse: "You sound tired, how did you sleep?"
-    },
-    {
-      IntentID: "HotelBed",
-      AudioResponse: "Yes you had a poor nights sleep. How's the food?",
-      VisualResponse: "Yes you had a poor nights sleep. How's the food?"
-    },
-    {
-      IntentID: "AverageFood",
-      AudioResponse: "However, nutritional intake was within acceptable limits",
-      VisualResponse: "However, nutritional intake was within acceptable limits"
-    },
-    {
-      IntentID: "FacebookAbs",
-      AudioResponse:
-        "Remember lots of images posted on Facebook are fake. And you are doing well on your fitness objectives",
-      VisualResponse:
-        "Remember lots of images posted on Facebook are fake. And you are doing well on your fitness objectives"
-    },
-    {
-      IntentID: "DatacomPresentable",
-      AudioResponse:
-        "You look well groomed today Scott. But looks like you need a haircut soon – shall I schedule one next week",
-      VisualResponse:
-        "You look well groomed today Scott. But looks like you need a haircut soon – shall I schedule one next week"
-    },
-    {
-      IntentID: "ThanksMira",
-      AudioResponse: "Ok, how are you feeling today?",
-      VisualResponse: "Ok, how are you feeling today?"
-    },
-    {
-      IntentID: "FeetAching",
-      AudioResponse:
-        "Don’t forget to take your anti-inflammitaries at your next meal",
-      VisualResponse:
-        "Don’t forget to take your anti-inflammitaries at your next meal"
-    },
-    {
-      IntentID: "RogerThat",
-      AudioResponse:
-        "And This item on causes for Gout was on the News last night that you should check out. I will send it to your phone.",
-      VisualResponse:
-        "And This item on causes for Gout was on the News last night that you should check out. I will send it to your phone."
-    },
-    {
-      IntentID: "WishLuck",
-      AudioResponse: "Good luck",
-      VisualResponse: "Good luck"
+      IntentID: "CoffeeBreak",
+      AudioResponse: "Take a quick walk and do some of these stretches",
+      VisualResponse: "Take a quick walk and do some of these stretches"
     },
     {
       IntentID: "Stretches",
-      AudioResponse: "Audio response stretch",
-      VisualResponse: "Visual response Stretch"
+      AudioResponse: "Get up from your desk regularly, and take active breaks",
+      VisualResponse: "Get up from your desk regularly, and take active breaks"
+    },
+    {
+      IntentID: "MoreAwake",
+      AudioResponse: "Some short bursts of physical activity will help",
+      VisualResponse: "Some short bursts of physical activity will help"
     }
-    //{ IntentID:"ThanksMira", AudioResponse:"Great. By the way, don’t forget to wear a jacket – it’s predicted to be cold today.", VisualResponse:"15 °C"},
   ]
 };
 
@@ -119,16 +45,16 @@ var noIntentFound = {
 
 function FindIntent(IntentId) {
   for (var i = 0; i < intentMapper.intents.length; i++) {
-    if (intentMapper.intents[i].IntentID === IntentId) {
+    if (intentMapper.intents[i].intentName === IntentId) {
       return intentMapper.intents[i];
     }
   }
-  return intentMapper.intents[0];
+  return noIntentFound;
 }
 
 exports.processRequest = function(req, res) {
   console.log("Logging req");
-  var picked = FindIntent(req.body.result.metadata.intentName);
+  var picked = FindIntent(req.body.queryResult.intent.displayName);
   console.log(picked);
   if (picked != null) {
     // if (picked.IntentID === "ShowPhotoshopMagazingCover") {
@@ -191,8 +117,7 @@ exports.processRequest = function(req, res) {
     });
 
     return res.json({
-      speech: picked.AudioResponse,
-      displayText: picked.AudioResponse,
+      fulfillmentText: picked.AudioResponse,
       source: picked.AudioResponse
     });
   } else {
