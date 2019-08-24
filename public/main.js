@@ -362,12 +362,6 @@ function detectPoseInRealTime(video, net) {
     }
 
     requestAnimationFrame(poseDetectionFrame);
-
-    if (poseDetectionState.detectDab && checkDab(pose)) {
-      console.log("dab detected");
-    }
-
-    requestAnimationFrame(poseDetectionFrame);
   }
   poseDetectionFrame();
 }
