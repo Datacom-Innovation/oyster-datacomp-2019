@@ -7,13 +7,13 @@ $(function() {
   var $body =  $("body");
   var $bottomLabel = $(".bottom-label");
   var $welcome = $(".welcome");
+  var $googleMessageWrapper = $(".google-message-wrapper");
 
   const displayHomeStatus = data => {
     hideAll()
     $body.css("background-color", "#c4d3e4")
-    $googleMessage.css("display", "block")
+    $googleMessageWrapper.css("display", "block")
     $googleMessage.text(data.message);
-    $googleMessage.fadeIn(2000);
   };
 
   const displayImage = data => {
@@ -21,7 +21,8 @@ $(function() {
     $listing.css("display", "block");
     $listing.attr("src", data.url);
     $body.css("background-color", "#000000")
-    $bottomLabel.css("display", "none");
+    $bottomLabel.css("display", "block");
+    $bottomLabel.text(data.message);
     if (data.url == "") {
       $listing.attr("src", "");
       $listing.css("display", "invisible");
@@ -35,7 +36,7 @@ $(function() {
 
   const hideAll = () => {
     $listing.css("display", "none");
-    $googleMessage.css("display", "none");
+    $googleMessageWrapper.css("display", "none");
     $body.css("background-color", "#000000")
     $bottomLabel.css("background-color", "#000000")
     $welcome.css("display", "none")
@@ -47,16 +48,23 @@ $(function() {
   socket.on("show_both_arms", data => {
     // Display home status 
     displayImage(data);
+    disableAllStates();
+    poseDetectionState.detectLeftArmRaised = true;
+    poseDetectionState.detectRightArmRaised = true;
   });
 
   socket.on("show_side_stretch", data => {
     // Display home status
     displayImage(data);
+    disableAllStates();
+    poseDetectionState.detectSideStretch = true;
   });
 
   socket.on("show_dab_done", data => {
     // Display home status
     displayImage(data);
+    disableAllStates();
+    poseDetectionState.detectDab = true
   });
 
   socket.on("greeting_start", data => {
@@ -65,6 +73,15 @@ $(function() {
   });
 
   socket.on("thanks_final", data => {});
+
+  const disableAllStates = () => {
+    poseDetectionState.detectBothArmsRaised = false;
+    poseDetectionState.detectDab = false;
+    poseDetectionState.detectLeftArmRaised = false;
+    poseDetectionState.detectRightArmRaised = false;
+    poseDetectionState.detectSideStretch = false;
+    poseDetectionState.detectTouchToes = false;
+  }
 });
 
 // manipulate values in this obj to turn on specific pose detection scenarios
