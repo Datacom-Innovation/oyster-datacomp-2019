@@ -62,6 +62,11 @@ $(function() {
     displayImage(data);
   });
 
+  socket.on("greeting_start", data => {
+    // Display home status //TODO
+    //displayLargeText(data);
+  });
+
   socket.on("thanks_final", data => {});
 });
 
@@ -281,20 +286,12 @@ function detectPoseInRealTime(video, net) {
   }
 
   async function poseDetectionFrame() {
-    ctx.clearRect(0, 0, videoWidth, videoHeight);
-
-    ctx.save();
-    ctx.scale(-1, 1);
-    ctx.translate(-videoWidth, 0);
-    ctx.drawImage(video, 0, 0, videoWidth, videoHeight);
-    ctx.restore();
-
     // skip pose detection for frame if we are not specifically looking for any poses
-    if (allFalse(poseDetectionState)) {
-      //console.debug('skip frame');
-      requestAnimationFrame(poseDetectionFrame);
-      return;
-    }
+    //if (allFalse(poseDetectionState)) {
+    //  console.debug('skip frame');
+    //  requestAnimationFrame(poseDetectionFrame);
+    //  return;
+    //}
     //console.debug('process frame');
 
     let poses = [];
@@ -309,10 +306,17 @@ function detectPoseInRealTime(video, net) {
     minPoseConfidence = +poseDetectionState.minPoseConfidence;
     minPartConfidence = +poseDetectionState.minPartConfidence;
 
+    ctx.clearRect(0, 0, videoWidth, videoHeight);
+    ctx.save();
+    ctx.scale(-1, 1);
+    ctx.translate(-videoWidth, 0);
+    ctx.drawImage(video, 0, 0, videoWidth, videoHeight);
+    ctx.restore();
+
     poses.forEach(({ score, keypoints }) => {
       if (score >= minPoseConfidence) {
-        //drawKeypoints(keypoints, minPartConfidence, ctx);
-        //drawSkeleton(keypoints, minPartConfidence, ctx);
+        drawKeypoints(keypoints, minPartConfidence, ctx);
+        drawSkeleton(keypoints, minPartConfidence, ctx);
       }
     });
 
