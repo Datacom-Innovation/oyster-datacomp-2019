@@ -1,0 +1,467 @@
+/* Fix user-agent */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+}
+
+html, input {
+  font-family:
+    "HelveticaNeue-Light",
+    "Helvetica Neue Light",
+    "Helvetica Neue",
+    Helvetica,
+    Arial,
+    "Lucida Grande",
+    sans-serif;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 20px;
+  position: relative;
+}
+
+ul {
+  list-style: none;
+  word-wrap: break-word;
+}
+
+/* Pages */
+
+.pages {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.body{
+  background-color: #000;
+}
+
+.page {
+  height: 100%;
+  position: absolute;
+  width: 100%;
+}
+
+.screenStatus, .homeStatus, .personStatus {
+  color: white;
+  font-size: 20px
+}
+
+.google-message-wrapper{
+  margin-top: 100px;
+}
+
+.google-message{
+  color: white;
+  font-size: 30px;
+}
+
+/* Login Page */
+
+.login.page {
+  background-color: #000;
+}
+
+.login.page .form {
+  height: 100px;
+  margin-top: -100px;
+  position: absolute;
+
+  text-align: center;
+  top: 50%;
+  width: 100%;
+}
+
+.login.page .form .usernameInput {
+  background-color: transparent;
+  border: none;
+  border-bottom: 2px solid #fff;
+  outline: none;
+  padding-bottom: 15px;
+  text-align: center;
+  width: 400px;
+}
+
+.login.page .title {
+  font-size: 200%;
+}
+
+.login.page .usernameInput {
+  font-size: 200%;
+  letter-spacing: 3px;
+}
+
+.login.page .title, .login.page .usernameInput {
+  color: #fff;
+  font-weight: 100;
+}
+
+/* Chat page */
+
+.chat.page {
+  display: none;
+}
+
+/* Font */
+
+.messages {
+  font-size: 150%;
+}
+
+.inputMessage {
+  font-size: 100%;
+}
+
+.log {
+  color: gray;
+  font-size: 70%;
+  margin: 5px;
+  text-align: center;
+}
+
+/* Messages */
+
+.chatArea {
+  height: 100%;
+  padding-bottom: 60px;
+}
+
+.messages {
+  height: 100%;
+  margin: 0;
+  overflow-y: scroll;
+  padding: 10px 20px 10px 20px;
+}
+
+.message.typing .messageBody {
+  color: white;
+}
+
+.username {
+  font-weight: 700;
+  overflow: hidden;
+  padding-right: 15px;
+  text-align: right;
+}
+
+/* Input */
+
+.inputMessage {
+  border: 10px solid #000;
+  bottom: 0;
+  height: 60px;
+  left: 0;
+  outline: none;
+  padding-left: 10px;
+  position: absolute;
+  right: 0;
+  width: 100%;
+}
+
+@font-face{
+  font-family: 'digital-7';
+  src: url('../fonts/digital-7.ttf');
+}
+
+/* DAYS OF THE WEEK */
+div.days {
+  color: #3b3939;
+  margin-bottom: 0;
+}
+
+div.days .day {
+  display: inline-block;
+  margin-bottom: 0px;
+}
+
+div.days .day p {
+	font-size: 1.1vw;
+	font-weight: bold;
+	font-family: sans-serif;
+  text-transform: uppercase;
+  margin-bottom: 0px;
+}
+
+
+/* CLOCK */
+div.clock {
+  margin:0px;
+}
+
+div.clock div{
+  margin-top:0px;
+	display: inline-block;
+	position: relative;
+}
+
+
+div.clock div p{
+  margin-top:0px;
+	font-size: 4vw;
+	position: relative;
+	z-index: 100;
+}
+
+div.clock .placeholder {
+  margin-top:0px;
+	color: #000000;
+	position: absolute;
+	top: 0;
+	z-index: 50;
+}/*END CLOCK*/
+
+
+/* AM OR PM*/
+.am-pm {
+  margin-top:0px;
+	font-family: sans-serif;
+	text-transform: uppercase;
+	/* width: 100px; */
+}
+
+div.am-pm div p {
+	font-size: 4vw;
+  width: 100%;
+  margin-bottom: 0.35vw;
+}
+
+.am, .pm {
+  color: white;
+  display:none;
+ 
+}
+
+.light-on { 
+  color: white;
+  display: block; 
+}
+
+
+/* Weather */
+.card{
+  float: left;
+  /*height: 110px;*/
+  /*margin-bottom: 80px;*/
+  margin-left: 0px;
+  margin-right:20px;
+  background-color: transparent;
+  border-radius: 20px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  box-shadow: 0px 7px 30px 2px rgba(0,0,0,0.18);
+}
+/* img{
+  width: 30px;
+} */
+.list-inline{
+  float: left;
+  margin-bottom: 0 !important;
+  flex: 1;
+  font-size: 10px;
+}
+.celsius{
+  bottom: 0px;
+  color: white;
+  float: left;
+  font-size: 20px;
+  margin-left: 5px;
+}
+.contents{
+  margin-left: 0px;
+  float: left;
+}
+.weather{
+  font-size: 25px;
+  font-weight: bold;
+  color: white;
+}
+.userName{
+  font-size: 25px;
+  font-weight: bold;
+  color: white;
+}
+.currentDate{
+  font-size: 20px;
+  color: white;
+  margin-top:-10px;
+  opacity: 0.7;
+}
+.listimg {
+    object-fit: contain;
+    width: 100%;
+    display: none;
+    max-height: 480px;
+}
+
+.videoClass {
+  object-fit: contain;
+  width: 72%;
+  display: none;
+  float: right;
+}
+
+/* start welcome animation */
+.invisible {
+  visibility: hidden;
+}
+
+.visible {
+  visibility: visible;
+}
+
+.static-splash {
+  z-index: -1;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background: #fff;
+}
+
+.splash {
+  height: 0px;
+  padding: 0px;
+  border: 130em solid #ffffff;
+  position: fixed;
+  left: 50%;
+  top: 100%;
+  display: block;
+  box-sizing: initial;
+  overflow: hidden;
+
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: puff 0.5s 1.8s cubic-bezier(0.55, 0.055, 0.675, 0.19) forwards, borderRadius 0.2s 2.3s linear forwards;
+}
+
+.ball {
+  background: #000000 ;
+  width: 56px;
+  height: 56px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  overflow: hidden;
+  opacity: 0;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  animation: init 0.5s 0.2s cubic-bezier(0.55, 0.055, 0.675, 0.19) forwards, moveDown 1s 0.8s cubic-bezier(0.6, -0.28, 0.735, 0.045) forwards, moveUp 1s 1.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards, hide 2s 1.5s ease forwards;
+}
+
+.elementToFadeInAndOut {
+  opacity: 1;
+  /* animation: fade 2s linear; */
+}
+
+@keyframes init {
+  0% {
+    width: 0px;
+    height: 0px;
+  }
+  100% {
+    width: 56px;
+    height: 56px;
+    margin-top: 0px;
+    opacity: 1;
+  }
+}
+
+@keyframes puff {
+  0% {
+    top: 100%;
+    height: 0px;
+    padding: 0px;
+  }
+  100% {
+    top: 50%;
+    height: 100%;
+    padding: 0px 100%;
+  }
+}
+
+@keyframes borderRadius {
+  0% {
+    border-radius: 50%;
+  }
+  100% {
+    border-radius: 0px;
+  }
+}
+
+@keyframes moveDown {
+  0% {
+    top: 50%;
+  }
+  50% {
+    top: 40%;
+  }
+  100% {
+    top: 100%;
+  }
+}
+
+@keyframes moveUp {
+  0% {
+    background: #000000;
+    top: 100%;
+  }
+  50% {
+    top: 40%;
+  }
+  100% {
+    top: 50%;
+    background: #ffffff;
+  }
+}
+
+@keyframes materia {
+  0% {
+    background: #ffffff;
+  }
+  50% {
+    background: #ffffff;
+    top: 26px;
+  }
+  100% {
+    background: #000000;
+    width: 100%;
+    height: 64px;
+    border-radius: 0px;
+    top: 26px;
+  }
+}
+
+@keyframes moveIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes hide {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+} 
+
+@keyframes fade {
+0%,100% { opacity: 0 }
+50% { opacity: 1 }
+}
+
+
