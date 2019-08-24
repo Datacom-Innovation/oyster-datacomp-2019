@@ -25,14 +25,9 @@ $(function() {
     if (data.url == "") {
       $listing.attr("src", "");
       $listing.css("display", "invisible");
-      $listing.hide();
-      $listing.fadeIn(2000);
     } else {
       $listing.attr("src", data.url);
       $listing.css("visibility", "visible");
-      $listing.hide();
-      $listing.fadeIn(2000);
-      $listing.delay(3000).fadeOut(2000);
     }
 
     console.log(data);
@@ -65,8 +60,8 @@ $(function() {
   });
 
   socket.on("greeting_start", data => {
-    // Display home status //TODO
-    //displayLargeText(data);
+    // Display home status
+    displayHomeStatus(data);
   });
 
   socket.on("thanks_final", data => {});
