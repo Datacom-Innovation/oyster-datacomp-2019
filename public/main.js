@@ -8,6 +8,7 @@ $(function() {
   var $userName = $(".userName"); //User's name
   var $listing = $(".listimg"); //Listing
   var $videoClass = $(".videoClass"); //Listing
+  var $body =  $("body");
 
   const displayHomeStatus = data => {
     console.log(data);
@@ -35,6 +36,7 @@ $(function() {
   const displayImage = data => {
     $listing.css("display", "block");
     $listing.attr("src", data.url);
+    $body.css("background-color", "#000000")
     if (data.url == "") {
       $listing.attr("src", "./img/Steps.png");
       $listing.css("display", "invisible");
@@ -69,18 +71,18 @@ $(function() {
   console.log("testing123");
 
   socket.on("show_both_arms", data => {
-    // Display home status //TODO
-    //displayImage(data);
+    // Display home status 
+    displayImage(data);
   });
 
   socket.on("show_side_stretch", data => {
-    // Display home status //TODO
-    //displayImage(data);
+    // Display home status
+    displayImage(data);
   });
 
   socket.on("show_dab_done", data => {
-    // Display home status //TODO
-    //displayImage(data);
+    // Display home status
+    displayImage(data);
   });
 
   socket.on("thanks_final", data => {});

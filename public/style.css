@@ -11,7 +11,7 @@ html {
 
 html, input {
   font-family:
-    "ABeeZee",
+    "Nunito Sans",
     "HelveticaNeue-Light",
     "Helvetica Neue Light",
     "Helvetica Neue",
@@ -41,7 +41,7 @@ ul {
   padding: 0;
   width: 100%;
   font-family:
-  "ABeeZee",
+  "Nunito Sans",
   "HelveticaNeue-Light",
   "Helvetica Neue Light",
   "Helvetica Neue",
@@ -51,8 +51,20 @@ ul {
   sans-serif !important;
 }
 
-.body{
-  background-color: #000;
+body {
+  background-color: #C4D3E4;
+}
+
+.bottom-label {
+  font-family:
+  "Nunito Sans",
+  "HelveticaNeue-Light",
+  "Helvetica Neue Light",
+  "Helvetica Neue",
+  Helvetica,
+  Arial,
+  "Lucida Grande",
+  sans-serif !important;
 }
 
 .page {
@@ -78,7 +90,7 @@ ul {
 /* Login Page */
 
 .login.page {
-  background-color: #000;
+  /* background-color: #C4D3E4; */
 }
 
 .login.page .form {
@@ -295,7 +307,7 @@ p {
   font-size: 3.5rem
 }
 .welcome {
-  background-color: #C4D3E4;
+  /* background-color: #C4D3E4; */
   width: 100vw;
   height: 100vh;
   top: 0;
@@ -309,7 +321,6 @@ p {
 }
 
 .google-message-wrapper {
-  background-color: #252741;
   color: #FFF;
 }
 .google-message-wrapper div {
