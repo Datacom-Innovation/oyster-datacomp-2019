@@ -258,6 +258,79 @@ function allFalse(object) {
 }
 
 function detectPoseInRealTime(video, net) {
+    function dotProduct(v1, v2) {
+        return v1.x * v2.x + v1.y * v2.y
+    }
+
+    function magnitude(vector) {
+        return Math.sqrt(Math.pow(vector.x, 2) + Math.pow(vector.y, 2))
+    }
+
+    function raiseHands(pose) {
+        var rightShoulder = pose[0]["keypoints"][6]
+        var rightElbow = pose[0]["keypoints"][8]
+        var rightWrist = pose[0]["keypoints"][10]
+        var isRightArmRaised = rightWrist.position.y < rightElbow.position.y && rightElbow.position.y < rightShoulder.position.y
+        var leftShoulder = pose[0]["keypoints"][5]
+        var leftElbow = pose[0]["keypoints"][7]
+        var leftWrist = pose[0]["keypoints"][9]
+        var isLeftArmRaised = leftWrist.position.y < leftElbow.position.y && leftElbow.position.y < leftShoulder.position.y
+        var isBothArmsRaised = isLeftArmRaised && isRightArmRaised;
+
+        return isBothArmsRaised;
+    }
+
+    function touchToes(pose) {
+        var rightWrist = pose[0]["keypoints"][10]
+        var leftWrist = pose[0]["keypoints"][9]
+        var leftKnee = pose[0]["keypoints"][13]
+        var rightKnee = pose[0]["keypoints"][14]
+
+        var isToesTouched = leftWrist.position.y > leftKnee.position.y && rightWrist.position.y > rightKnee.position.y
+
+        return isToesTouched;
+    }
+
+    function sideStretch(pose) {
+        var leftHip = pose[0]["keypoints"][11]
+        var rightHip = pose[0]["keypoints"][12]
+
+        var leftShoulder = pose[0]["keypoints"][5]
+        var rightShoulder = pose[0]["keypoints"][6]
+
+        var leftKnee = pose[0]["keypoints"][13]
+        var rightKnee = pose[0]["keypoints"][14]
+
+        var v1 = {
+            x: leftShoulder.position.x - leftHip.position.x,
+            y: rightShoulder.position.y - rightHip.position.y
+        }
+
+        var v2 = {
+            x: leftShoulder.position.x - leftKnee.position.x,
+            y: rightShoulder.position.y - rightKnee.position.y
+        }
+
+        var angle = Math.acos(dotProduct(v1,v2)/(magnitude(v1)*magnitude(v2)))
+
+        var isSideStretched = angle > minSideStretchAngle
+
+        return isSideStretched;
+    }
+
+    function checkDab(pose) {
+        var rightWrist = pose[0]["keypoints"][10]
+        var leftWrist = pose[0]["keypoints"][9]
+
+        var leftShoulder = pose[0]["keypoints"][5]
+        var rightShoulder = pose[0]["keypoints"][6]
+
+        var isRightDab = (leftWrist.position.x > leftShoulder.position.x && leftWrist.position.x < rightShoulder.position.x) && rightWrist.position.y < rightShoulder.position.y
+        var isLeftDab = (rightWrist.position.x < rightShoulder.position.x && rightWrist.position.x > leftShoulder.position.x) && leftWrist.position.y < leftShoulder.position.y
+
+        return isRightDab || isLeftDab;
+    }
+
     async function poseDetectionFrame() {
         // skip frame if we are not specifically looking for any poses
         if (allFalse(poseDetectionState)) {
@@ -281,20 +354,20 @@ function detectPoseInRealTime(video, net) {
 
         }
 
-        if (poseDetectionState.detectBothArmsRaised) {
-
+        if (poseDetectionState.detectBothArmsRaised && raiseHands(pose)) {
+            console.log('raised arms detected');
         }
 
-        if (poseDetectionState.detectToeTouch) {
-
+        if (poseDetectionState.detectToeTouch && touchToes(pose)) {
+            console.log('toe touch detected');
         }
 
-        if (poseDetectionState.detectSideStretch) {
-
+        if (poseDetectionState.detectSideStretch && sideStretch(pose)) {
+            console.log('side stretch detected');
         }
 
-        if (poseDetectionState.detectDab) {
-
+        if (poseDetectionState.detectDab && checkDab(pose)) {
+            console.log('dab detected');
         }
 
         requestAnimationFrame(poseDetectionFrame);
@@ -304,14 +377,14 @@ function detectPoseInRealTime(video, net) {
 
 //invokes functions as soon as window loads
 window.onload = async function(){
-	time();
-	ampm();
-	whatDay();
-	setInterval(function(){
-		time();
-		ampm();
-		whatDay();
-	}, 1000);
+    time();
+    ampm();
+    whatDay();
+    setInterval(function(){
+        time();
+        ampm();
+        whatDay();
+    }, 1000);
     const net = await setupPosenet();
     const video = await loadVideo();
     detectPoseInRealTime(video, net);
