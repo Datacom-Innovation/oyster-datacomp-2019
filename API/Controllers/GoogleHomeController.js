@@ -68,14 +68,14 @@ exports.processRequest = function(req, res) {
       io.emit("show_both_arms", {
         status: true,
         url:
-          "https://magicmirror.blob.core.windows.net/miraimages/ConferenceDay2.png"
+          "https://pearlimages.blob.core.windows.net/pearlimages/hands_up.png"
       });
     }
 
     if (picked.IntentID === "BothArmsRaised") {
       io.emit("show_side_stretch", {
         status: true,
-        url: "https://magicmirror.blob.core.windows.net/miraimages/Sleep2.png"
+        url: "https://pearlimages.blob.core.windows.net/pearlimages/bend.png"
       });
     }
 
@@ -83,7 +83,7 @@ exports.processRequest = function(req, res) {
       io.emit("show_dab_done", {
         status: true,
         url:
-          "https://magicmirror.blob.core.windows.net/miraimages/Nutrition2.png"
+          "https://pearlimages.blob.core.windows.net/pearlimages/dab_outline.png"
       });
     }
 
