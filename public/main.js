@@ -266,15 +266,29 @@ function detectPoseInRealTime(video, net) {
         return Math.sqrt(Math.pow(vector.x, 2) + Math.pow(vector.y, 2))
     }
 
-    function raiseHands(pose) {
+    function raiseRightHand(pose) {
         var rightShoulder = pose[0]["keypoints"][6]
         var rightElbow = pose[0]["keypoints"][8]
         var rightWrist = pose[0]["keypoints"][10]
+
         var isRightArmRaised = rightWrist.position.y < rightElbow.position.y && rightElbow.position.y < rightShoulder.position.y
+
+        return isRightArmRaised;
+    }
+
+    function raiseLeftHand(pose) {
         var leftShoulder = pose[0]["keypoints"][5]
         var leftElbow = pose[0]["keypoints"][7]
         var leftWrist = pose[0]["keypoints"][9]
+
         var isLeftArmRaised = leftWrist.position.y < leftElbow.position.y && leftElbow.position.y < leftShoulder.position.y
+
+        return isLeftArmRaised;
+    }
+
+    function raiseHands(pose) {
+        var isRightArmRaised = raiseRightHand(pose);
+        var isLeftArmRaised = raiseLeftHand(pose);
         var isBothArmsRaised = isLeftArmRaised && isRightArmRaised;
 
         return isBothArmsRaised;
