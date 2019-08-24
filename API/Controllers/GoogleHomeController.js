@@ -33,6 +33,13 @@ var intentMapper = {
       IntentID: "Thanks",
       AudioResponse: "Awesome, see you later for more stretches.",
       VisualResponse: "Awesome, see you later for more stretches."
+    },
+    {
+      IntentID: "Default Welcome Intent",
+      AudioResponse:
+        "Hi there, how are you feeling today? 1 being not so great and 5 being great.",
+      VisualResponse:
+        "Hi there, how are you feeling today? 1 being not so great and 5 being great."
     }
   ]
 };
@@ -82,6 +89,12 @@ exports.processRequest = function(req, res) {
 
     if (picked.IntentID === "Thanks") {
       io.emit("thanks_final", {
+        status: true
+      });
+    }
+
+    if (picked.IntentID === "Default Welcome Intent") {
+      io.emit("greeting_start", {
         status: true
       });
     }
