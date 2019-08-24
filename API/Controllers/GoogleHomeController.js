@@ -68,14 +68,16 @@ exports.processRequest = function(req, res) {
       io.emit("show_both_arms", {
         status: true,
         url:
-          "https://pearlimages.blob.core.windows.net/pearlimages/hands_up.png"
+          "https://pearlimages.blob.core.windows.net/pearlimages/hands_up.png",
+        message: picked.VisualResponse
       });
     }
 
     if (picked.IntentID === "BothArmsRaised") {
       io.emit("show_side_stretch", {
         status: true,
-        url: "https://pearlimages.blob.core.windows.net/pearlimages/bend.png"
+        url: "https://pearlimages.blob.core.windows.net/pearlimages/bend.png",
+        message: picked.VisualResponse
       });
     }
 
@@ -83,7 +85,8 @@ exports.processRequest = function(req, res) {
       io.emit("show_dab_done", {
         status: true,
         url:
-          "https://pearlimages.blob.core.windows.net/pearlimages/dab_outline.png"
+          "https://pearlimages.blob.core.windows.net/pearlimages/dab_outline.png",
+        message: picked.VisualResponse
       });
     }
 
@@ -95,7 +98,8 @@ exports.processRequest = function(req, res) {
 
     if (picked.IntentID === "Default Welcome Intent") {
       io.emit("greeting_start", {
-        status: true
+        status: true,
+        message: picked.VisualResponse
       });
     }
 
