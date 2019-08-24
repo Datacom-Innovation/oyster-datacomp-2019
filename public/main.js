@@ -9,6 +9,8 @@ $(function() {
   var $welcome = $(".welcome");
   var $googleMessageWrapper = $(".google-message-wrapper");
   var $googleMessageText = $(".google-message-text");
+  var $welcomeHeading = $(".welcome-heading");
+  var $welcomeContent = $(".welcome-content");
 
   const displayHomeStatus = data => {
     hideAll()
@@ -39,9 +41,11 @@ $(function() {
 
   const displayFinal = data => {
     hideAll()
-    $bottomLabel.css("display", "block");
-    $bottomLabel.css("color", "#FFFFFF");
-    $body.css("background-color", "#f15a5e")
+    $body.css("background-color", "#f15a5e");
+    $welcome.css("color","#252741");
+    $welcomeHeading.text("Thank You");
+    $welcomeContent.text("Have a pearl day!");
+
   }
 
   const hideAll = () => {
