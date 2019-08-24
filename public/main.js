@@ -17,7 +17,7 @@ $(function() {
     $googleMessageText.text(data.message);
   };
 
-  successPose();
+  // successPose();
 
   const displayImage = data => {
     hideAll()
