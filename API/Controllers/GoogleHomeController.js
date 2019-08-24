@@ -25,7 +25,7 @@ var intentMapper = {
         { IntentID: "RogerThat", AudioResponse: "And This item on causes for Gout was on the News last night that you should check out. I will send it to your phone.", VisualResponse: "And This item on causes for Gout was on the News last night that you should check out. I will send it to your phone." },
         { IntentID: "WishLuck", AudioResponse: "Good luck", VisualResponse: "Good luck" },
 
-        { IntentID: "Streches", AudioResponse: "Audio response stretch", VisualResponse: "Visual responseStretch" },
+        { IntentID: "Stretches", AudioResponse: "Audio response stretch", VisualResponse: "Visual responseStretch" },
 
         //{ IntentID:"ThanksMira", AudioResponse:"Great. By the way, don’t forget to wear a jacket – it’s predicted to be cold today.", VisualResponse:"15 °C"},
 
