@@ -148,6 +148,16 @@ $(function() {
 
 });
 
+// manipulate values in this obj to turn on specific pose detection scenarios
+const poseDetectionState = {
+    detectRightArmRaised: false,
+    detectLeftArmRaised: false,
+    detectBothArmsRaised: false,
+    detectTouchToes: false,
+    detectSideStretch: false,
+    detectDab: false,
+};
+
 //gets current time and changes html to reflect it
 function time(){
 	var date = new Date(),
@@ -240,8 +250,21 @@ async function setupCamera() {
     });
 }
 
+function allFalse(object) {
+    for (var i in object) {
+        if (object[i] === true) return false;
+    }
+    return true;
+}
+
 function detectPoseInRealTime(video, net) {
     async function poseDetectionFrame() {
+        // skip frame if we are not specifically looking for any poses
+        if (allFalse(poseDetectionState)) {
+            requestAnimationFrame(poseDetectionFrame);
+            return;
+        }
+
         let poses = [];
         const pose = await net.estimatePoses(video, {
             flipHorizontal: true,
@@ -250,7 +273,29 @@ function detectPoseInRealTime(video, net) {
         poses = poses.concat(pose);
 
         // insert pose detection code here
-        //console.log('pose', pose);
+        if (poseDetectionState.detectRightArmRaised) {
+
+        }
+
+        if (poseDetectionState.detectLeftArmRaised) {
+
+        }
+
+        if (poseDetectionState.detectBothArmsRaised) {
+
+        }
+
+        if (poseDetectionState.detectToeTouch) {
+
+        }
+
+        if (poseDetectionState.detectSideStretch) {
+
+        }
+
+        if (poseDetectionState.detectDab) {
+
+        }
 
         requestAnimationFrame(poseDetectionFrame);
     }
