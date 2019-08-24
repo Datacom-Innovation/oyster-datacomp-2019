@@ -83,6 +83,11 @@ $(function() {
     //displayImage(data);
   });
 
+  socket.on("greeting_start", data => {
+    // Display home status //TODO
+    //displayLargeText(data);
+  });
+
   socket.on("thanks_final", data => {});
 });
 
