@@ -362,12 +362,12 @@ function detectPoseInRealTime(video, net) {
         poses = poses.concat(pose);
 
         // insert pose detection code here
-        if (poseDetectionState.detectRightArmRaised) {
-
+        if (poseDetectionState.detectRightArmRaised && raiseRightHand(pose)) {
+            console.log('raised right arm detected');
         }
 
-        if (poseDetectionState.detectLeftArmRaised) {
-
+        if (poseDetectionState.detectLeftArmRaised && raiseLeftHand(pose)) {
+            console.log('raised left arm detected');
         }
 
         if (poseDetectionState.detectBothArmsRaised && raiseHands(pose)) {
