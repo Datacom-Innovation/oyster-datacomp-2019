@@ -1,26 +1,20 @@
 {
-  "name": "Oyster",
-  "version": "0.0.0",
-  "description": "Oyster",
-  "main": "index.js",
-  "author": "Datacomp 2019",
+  "name": "oyster",
+  "version": "0.1.0",
   "private": true,
-  "license": "",
   "dependencies": {
-    "concurrently": "^4.1.2",
-    "express": "^4.16.3",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
-    "react-scripts": "3.1.1",
-    "request": "^2.88.0",
-    "socket.io": "^2.2.0",
-    "socket.io-client": "^2.2.0"
+    "react-scripts": "3.1.1"
   },
   "scripts": {
-    "start": "concurrently --kill-others \"node app.js\" \"PORT=8000 react-scripts start\"",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
   },
   "browserslist": {
     "production": [
