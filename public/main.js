@@ -148,19 +148,6 @@ $(function() {
 
 });
 
-//invokes functions as soon as window loads
-window.onload = function(){
-	time();
-	ampm();
-	whatDay();
-	setInterval(function(){
-		time();
-		ampm();
-		whatDay();
-	}, 1000);
-};
-
-
 //gets current time and changes html to reflect it
 function time(){
 	var date = new Date(),
@@ -214,6 +201,73 @@ function whatDay(){
 	}
 }
 
+async function setupPosenet() {
+    return await posenet.load({
+        architecture: 'ResNet50',
+        outputStride: 32,
+        inputResolution: 513,
+        multiplier: 1.0,
+        quantBytes: 2,
+    });
+}
 
+async function loadVideo() {
+    const video = await setupCamera();
+    video.play();
 
+    return video;
+}
 
+async function setupCamera() {
+    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+    const video = document.getElementById('posenet-video');
+    video.width = 1280;
+    video.height = 720;
+    const stream = await navigator.mediaDevices.getUserMedia({
+        'audio': false,
+        'video': {
+            facingMode: 'user',
+            width: 1280,
+            height: 720,
+        },
+    });
+    video.srcObject = stream;
+
+    return new Promise((resolve) => {
+        video.onloadedmetadata = () => {
+            resolve(video);
+        };
+    });
+}
+
+function detectPoseInRealTime(video, net) {
+    async function poseDetectionFrame() {
+        let poses = [];
+        const pose = await net.estimatePoses(video, {
+            flipHorizontal: true,
+            decodingMethod: 'single-person',
+        });
+        poses = poses.concat(pose);
+
+        // insert pose detection code here
+        //console.log('pose', pose);
+
+        requestAnimationFrame(poseDetectionFrame);
+    }
+    poseDetectionFrame();
+}
+
+//invokes functions as soon as window loads
+window.onload = async function(){
+	time();
+	ampm();
+	whatDay();
+	setInterval(function(){
+		time();
+		ampm();
+		whatDay();
+	}, 1000);
+    const net = await setupPosenet();
+    const video = await loadVideo();
+    detectPoseInRealTime(video, net);
+};
