@@ -5,7 +5,8 @@ $(function() {
   var $googleMessage = $(".google-message"); //Google Message
   var $listing = $(".listimg"); //Listing
   var $body =  $("body");
-  var $bottomLabel = $(".bottom-label")
+  var $bottomLabel = $(".bottom-label");
+  var $welcome = $(".welcome");
 
   const displayHomeStatus = data => {
     hideAll()
@@ -38,10 +39,11 @@ $(function() {
   };
 
   const hideAll = () => {
-    $listing.css("display", "block");
-    $googleMessage.css("display", "block");
+    $listing.css("display", "none");
+    $googleMessage.css("display", "none");
     $body.css("background-color", "#000000")
     $bottomLabel.css("background-color", "#000000")
+    $welcome.css("display", "none")
   }
 
   // **** Socket Events ****
