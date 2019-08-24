@@ -44,7 +44,9 @@ $(function() {
     $body.css("background-color", "#f15a5e");
     $welcome.css("color","#252741");
     $welcomeHeading.text("Thank You");
+    $welcomeHeading.css("display", "block");
     $welcomeContent.text("Have a pearl day!");
+    $welcomeContent.css("display", "block");
 
   }
 
