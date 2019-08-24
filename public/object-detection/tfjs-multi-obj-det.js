@@ -1,4 +1,5 @@
 var model
+var isPersonDetected = false
 
 console.log('loading coco-ssd model...')
 cocoSsd.load().then(function(res){
@@ -143,6 +144,14 @@ function drawVideoPredictions(predictions){
       // Draw the text last to ensure it's on top.
       ctx.fillStyle = "#000000";
       ctx.fillText(prediction.class, x, y);
+      console.log(prediction.class)
+      if (prediction.class == "person") {
+        if (!isPersonDetected) {
+            var audio = new Audio('xp.wav');
+            audio.play();
+            isPersonDetected = true
+        }
+      }
     });
 }
 
